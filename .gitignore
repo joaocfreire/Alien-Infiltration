@@ -1,6 +1,6 @@
 
 /.idea
-scripts/__pycache__/entities.cpython-312.pyc
-scripts/__pycache__/game.cpython-312.pyc
-scripts/__pycache__/tilemap.cpython-312.pyc
-scripts/__pycache__/utils.cpython-312.pyc
+alien_infiltration/scripts/__pycache__/entities.cpython-312.pyc
+alien_infiltration/scripts/__pycache__/game.cpython-312.pyc
+alien_infiltration/scripts/__pycache__/tilemap.cpython-312.pyc
+alien_infiltration/scripts/__pycache__/utils.cpython-312.pyc

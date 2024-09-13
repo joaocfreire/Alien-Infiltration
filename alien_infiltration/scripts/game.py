@@ -1,8 +1,8 @@
 import sys
 import random
-from scripts.utils import *
-from scripts.tilemap import Tilemap
-from scripts.entities import Player, WalkingEnemy, FlyingEnemy, Boss
+from alien_infiltration.scripts.utils import *
+from alien_infiltration.scripts.tilemap import Tilemap
+from alien_infiltration.scripts.entities import Player, WalkingEnemy, FlyingEnemy, Boss
 
 
 LEVEL_LIMIT = 2880
