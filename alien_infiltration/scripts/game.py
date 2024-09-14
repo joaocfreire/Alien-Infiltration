@@ -334,7 +334,7 @@ class Game:
                 if self.player.rect().colliderect(self.boss.hitbox) and not self.player.dead and not self.boss.dead:
                     self.screenshake = max(16, self.screenshake)
                     self.player.die()
-                if self.boss.dead and self.boss.count_die == 1:
+                if self.boss.exploded and self.boss.count_explosion == 1:
                     self.boss = None
 
             self.player.update(self.tilemap, (self.movement[1] - self.movement[0], 0))
