@@ -37,7 +37,7 @@ class Tilemap:
         tiles = []
         tile_loc = (int(pos[0] // self.tile_size), int(pos[1] // self.tile_size))
         for offset in NEIGHBOR_OFFSETS:
-            check_loc = str(tile_loc[0] + offset[0]) + ';' + str(tile_loc[1] + offset[1])
+            check_loc = f'{tile_loc[0] + offset[0]};{tile_loc[1] + offset[1]}'
             if check_loc in self.tilemap:
                 tiles.append(self.tilemap[check_loc])
         return tiles
@@ -57,7 +57,7 @@ class Tilemap:
         self.offgrid_tiles = map_data['offgrid']
 
     def solid_check(self, pos):
-        tile_loc = str(int(pos[0] // self.tile_size)) + ';' + str(int(pos[1] // self.tile_size))
+        tile_loc = f'{int(pos[0] // self.tile_size)};{int(pos[1] // self.tile_size)}'
         if tile_loc in self.tilemap:
             if self.tilemap[tile_loc]['type'] in PHYSICS_TILES:
                 return self.tilemap[tile_loc]
@@ -66,17 +66,21 @@ class Tilemap:
         rects = []
         for tile in self.tiles_arround(pos):
             if tile['type'] in PHYSICS_TILES:
-                rects.append(pygame.Rect(tile['pos'][0] * self.tile_size, tile['pos'][1] * self.tile_size, self.tile_size, self.tile_size))
+                rects.append(pygame.Rect(tile['pos'][0] * self.tile_size, tile['pos'][1] * self.tile_size,
+                                         self.tile_size, self.tile_size))
         return rects
 
     def render(self, surf, offset=(0, 0)):
         for tile in self.offgrid_tiles:
-            surf.blit(self.game.assets[tile['type']][tile['variant']], (tile['pos'][0] - offset[0], tile['pos'][1] - offset[1]))
+            surf.blit(self.game.assets[tile['type']][tile['variant']], (tile['pos'][0] - offset[0],
+                                                                        tile['pos'][1] - offset[1]))
 
         for x in range(offset[0] // self.tile_size, (offset[0] + surf.get_width()) // self.tile_size + 1):
             for y in range(offset[1] // self.tile_size, (offset[1] + surf.get_height()) // self.tile_size + 1):
-                loc = str(x) + ';' + str(y)
+                loc = f'{x};{y}'
                 if loc in self.tilemap:
                     tile = self.tilemap[loc]
                     if self.editor or tile['type'] != 'barrier':
-                        surf.blit(self.game.assets[tile['type']][tile['variant']], (tile['pos'][0] * self.tile_size - offset[0], tile['pos'][1] * self.tile_size - offset[1]))
+                        surf.blit(self.game.assets[tile['type']][tile['variant']],
+                                  (tile['pos'][0] * self.tile_size - offset[0],
+                                   tile['pos'][1] * self.tile_size - offset[1]))

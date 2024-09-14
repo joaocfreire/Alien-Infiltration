@@ -16,6 +16,7 @@ class PhysicsEntity:
         self.anim_offset = (-3, -3)
         self.flip = False
         self.set_action('idle')
+        self.animation = self.game.assets[f'{self.type}/{self.action}'].copy()
 
     def rect(self):
         return pygame.Rect(self.pos[0], self.pos[1], self.size[0], self.size[1])
@@ -23,7 +24,7 @@ class PhysicsEntity:
     def set_action(self, action):
         if action != self.action:
             self.action = action
-            self.animation = self.game.assets[self.type + '/' + self.action].copy()
+            self.animation = self.game.assets[f'{self.type}/{self.action}'].copy()
 
     def update(self, tilemap, movement=(0, 0)):
         self.collisions = {'up': False, 'down': False, 'right': False, 'left': False}
@@ -67,7 +68,9 @@ class PhysicsEntity:
         self.animation.update()
 
     def render(self, surf, offset=(0, 0)):
-        surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0] - offset[0] + self.anim_offset[0], self.pos[1] - offset[1] + self.anim_offset[1] + self.offset))
+        surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False),
+                  (self.pos[0] - offset[0] + self.anim_offset[0],
+                   self.pos[1] - offset[1] + self.anim_offset[1] + self.offset))
 
 
 class WalkingEnemy(PhysicsEntity):
@@ -276,7 +279,9 @@ class Player(PhysicsEntity):
 
     def render(self, surf, offset=(0, 0)):
         if self.flip and self.shooting and self.action in ('shoot', 'run_shoot', 'jump_shoot'):
-            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0] - offset[0] + self.anim_offset[0] - 17, self.pos[1] - offset[1] + self.anim_offset[1] + self.offset))
+            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False),
+                      (self.pos[0] - offset[0] + self.anim_offset[0] - 17,
+                       self.pos[1] - offset[1] + self.anim_offset[1] + self.offset))
         else:
             super().render(surf, offset=offset)
 
@@ -359,7 +364,9 @@ class Boss(PhysicsEntity):
                 self.game.sfx['explosion'].play()
             self.count_explosion -= 1
             self.explosion.update()
-            self.game.display.blit(pygame.transform.scale(self.explosion.img(), (224, 256)), (self.explosion_pos[0] - self.game.scroll[0] - 20, self.explosion_pos[1] + self.explosion.img().get_height() - self.game.scroll[1] - 300))
+            self.game.display.blit(pygame.transform.scale(self.explosion.img(), (224, 256)),
+                                   (self.explosion_pos[0] - self.game.scroll[0] - 20,
+                                    self.explosion_pos[1] + self.explosion.img().get_height() - self.game.scroll[1] - 300))
             if self.count_explosion == 0:
                 self.exploded = False
 
@@ -382,7 +389,8 @@ class Boss(PhysicsEntity):
                 self.set_action('shoot')
 
             elif self.count_shot == 20:
-                self.game.boss_projectiles.append(BossProjectile(self.game, [self.rect().centerx - 20, self.rect().centery - 85], (90, 33)))
+                self.game.boss_projectiles.append(BossProjectile(self.game, [self.rect().centerx - 20,
+                                                                             self.rect().centery - 85], (90, 33)))
                 self.game.sfx['boss/shoot'].play()
 
             self.count_shot -= 1

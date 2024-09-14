@@ -22,9 +22,9 @@ class Menu:
         logo = load_image('menu/logo.png')
 
         buttons = {
-            'play': Button('menu/buttons/play.png', 'menu/selected_buttons/play.png'),
-            'controls': Button('menu/buttons/controls.png', 'menu/selected_buttons/controls.png'),
-            'exit': Button('menu/buttons/exit.png', 'menu/selected_buttons/exit.png')
+            'play': Button('menu/buttons/play'),
+            'controls': Button('menu/buttons/controls'),
+            'exit': Button('menu/buttons/exit')
         }
 
         while True:
@@ -81,9 +81,9 @@ class Menu:
         attack_pause = load_image('menu/attack_pause.png')
 
         buttons = {
-            'arrowkeys': Button('menu/buttons/arrow_keys.png', 'menu/selected_buttons/arrow_keys.png'),
-            'wasd': Button('menu/buttons/wasd.png', 'menu/selected_buttons/wasd.png'),
-            'back': Button('menu/buttons/back.png', 'menu/selected_buttons/back.png')
+            'arrowkeys': Button('menu/buttons/arrow_keys'),
+            'wasd': Button('menu/buttons/wasd'),
+            'back': Button('menu/buttons/back')
         }
 
         while True:

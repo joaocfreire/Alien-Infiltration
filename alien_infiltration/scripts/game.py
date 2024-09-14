@@ -142,7 +142,7 @@ class Game:
 
         self.enemies = []
         for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1), ('spawners', 2), ('spawners', 3),
-                                             ('spawners', 4), ('spawners', 5), ('spawners', 6)]):
+                                             ('spawners', 4), ('spawners', 5)]):
             if spawner['variant'] == 0:
                 self.player.pos = spawner['pos']
                 self.player.air_time = 0
@@ -218,8 +218,8 @@ class Game:
         paused = load_image('menu/paused.png')
 
         buttons = {
-            'resume': Button('menu/buttons/resume.png', 'menu/selected_buttons/resume.png'),
-            'quit': Button('menu/buttons/quit.png', 'menu/selected_buttons/quit.png'),
+            'resume': Button('menu/buttons/resume'),
+            'quit': Button('menu/buttons/quit'),
         }
 
         while True:
@@ -257,7 +257,6 @@ class Game:
             pygame.display.update()
 
     def run(self):
-        collided = False
         while True:
             if not self.music_start:
                 pygame.mixer.music.load(self.musics[self.level])
@@ -302,9 +301,7 @@ class Game:
 
             if self.easter_egg is not None:
                 if self.player.rect().colliderect(self.easter_egg):
-                    if not collided:
-                        self.sfx['coin'].play()
-                        collided = True
+                    self.sfx['coin'].play()
                     self.transition += 1.3
                     if self.transition > 50:
                         self.level = 3
@@ -432,7 +429,7 @@ class Game:
                 self.display_2.blit(self.assets['life_bar/player'][self.life], (5, 195))
                 if self.boss is not None:
                     img = self.assets['life_bar/boss'][self.boss.life]
-                    self.display_2.blit(img, ((self.display.get_width() - img.get_width())/2, 6))
+                    self.display_2.blit(img, ((self.display.get_width() - img.get_width())/2 + 30, 6))
 
             screenshake_offset = (
                 random.random() * self.screenshake - self.screenshake / 2,

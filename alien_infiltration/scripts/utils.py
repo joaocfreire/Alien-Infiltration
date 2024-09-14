@@ -13,7 +13,7 @@ def load_image(path):
 def load_images(path):
     images = []
     for img_name in sorted(os.listdir(BASE_IMG_PATH + path)):
-        images.append(load_image(path + '/' + img_name))
+        images.append(load_image(f'{path}/{img_name}'))
     return images
 
 
@@ -74,12 +74,12 @@ class Animation:
 
 
 class Button:
-    def __init__(self, image_file_1, image_file_2):
+    def __init__(self, path):
         self.x = 0
         self.y = 0
 
-        self.img_1 = load_image(image_file_1)
-        self.img_2 = load_image(image_file_2)
+        self.img_1 = load_image(f'{path}/unselected.png')
+        self.img_2 = load_image(f'{path}/selected.png')
         self.curr_image = self.img_1
 
         self.width = self.curr_image.get_width()
